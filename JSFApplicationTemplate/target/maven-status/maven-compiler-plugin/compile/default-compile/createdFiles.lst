@@ -1,0 +1,4 @@
+persistence\DBHelper.class
+persistence\Course.class
+beans\CourseData.class
+control\LookupControl.class
