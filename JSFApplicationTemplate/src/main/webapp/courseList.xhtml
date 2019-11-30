@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{lookupControl.displayCourses}"/>
+    </f:metadata>
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <ui:insert name="top">Top</ui:insert>
+        </div>
+        <div>
+            <div id="left">
+                <ui:insert name="left">
+                    <ul style="list-style-type:none; width: 20%; padding: 10px;" class="left-menu-list">
+                        <li><h:link outcome="instructorOperationsChoices.xhtml" value="Instructor Operations"/></li>
+                        <li><h:link outcome="studentOperationsChoices.xhtml" value="Student Operations"/></li>
+                    </ul>
+                </ui:insert>
+            </div>
+            <div>
+                <div id="right">
+                    <ui:insert name="right">Right</ui:insert>
+                </div>
+                <div id="content" class="right_content">
+                    <ui:insert name="content">
+                        
+                        <h1 style="font-weight: 900;">Courses available</h1>
+                        <h:dataTable value="#{courseData.lookupResults}" var="course">
+                            <h:column>
+                                <div style="width: 150px;
+                                     height: 100px;
+                                     text-align: center;
+                                     border-radius:5px; 
+                                     border-color: black; 
+                                     background-color: yellowgreen;
+                                     padding: 50px;">
+                                    <h:link style="color: midnightblue; font-weight: 900; font-size: large" value="#{course.courseCode}" outcome="course">
+                                        <f:param name="id" value="#{course.courseCode}" />
+                                    </h:link>
+                                </div>
+                            </h:column>
+                        </h:dataTable>
+
+                    </ui:insert>
+                </div>
+            </div>
+        </div>
+        
+
+    </h:body>
+
+</html>

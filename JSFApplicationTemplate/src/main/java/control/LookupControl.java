@@ -7,6 +7,8 @@
 package control;
 
 import beans.CourseData;
+import beans.TeamData;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import persistence.DBHelper;
 import persistence.Course;
+import persistence.Team;
 
 
 @Named(value = "lookupControl")
@@ -25,6 +28,10 @@ import persistence.Course;
 public class LookupControl implements Serializable {
     @Inject
     private CourseData courseData;
+    
+    @Inject
+    private TeamData teamData;
+
     @PersistenceContext
     EntityManager em;
     @Resource
@@ -43,12 +50,43 @@ public class LookupControl implements Serializable {
        }
        courseData.setLookupResults(results);
     }
+    
+    //Called on page load
+    public void displayCourses(){
+        
+        List<Course> courses = DBHelper.findCourses(em);
+        courseData.setLookupResults(courses);
+        
+        System.out.println("Courses found "+courses.size());
+        
+    }
     public void add() {
         if (DBHelper.addCourse(em,utx,courseData)) {
             courseData.setAddstatus("The User Was Successfuly Added");
         } else {
             courseData.setAddstatus("Addition of the User Failed");
         }
+    }
+    
+    /**
+     * 
+     * Creates a new team (INCOMPLETE)
+     */
+    public void addTeam(){
+
+        if( DBHelper.findTeam(em, teamData.getTeamName()) == null){
+            if(DBHelper.addTeam(em,utx,teamData)){
+                teamData.setAddstatus("The Team Was Successfuly Added");
+                
+           }else{
+                teamData.setAddstatus("Failed to add the Team");
+            }
+        
+        }else{
+            teamData.setAddstatus("Team name already in use");
+        }
+       
+        
     }
     
         /**
@@ -59,6 +97,15 @@ public class LookupControl implements Serializable {
         Course course = DBHelper.findCourse(em,userData.getCourseCode());
         if (course != null && course.matches(userData)) {
             result.add(course);  
+        }
+        return result;  
+    }
+    
+    private List<Team> getTeams(EntityManager em,TeamData teamData) {
+        ArrayList<Team> result = new ArrayList<>();
+        Team team = DBHelper.findTeam(em,teamData.getTeamName());
+        if (team != null && team.matches(teamData)) {
+            result.add(team);  
         }
         return result;  
     }

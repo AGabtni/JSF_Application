@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import persistence.TeamParams;
 /**
  *
  * @author Marc_
@@ -23,6 +23,11 @@ public class Course implements Serializable {
     @Id
     private String courseCode;
     
+    //new instance of team parameters associated with this course
+    private TeamParams teamParams = null;
+    
+    
+    
     public Course(){
     }
 
@@ -33,7 +38,9 @@ public class Course implements Serializable {
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
     }
-
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -70,5 +77,19 @@ public class Course implements Serializable {
         }
         return true;
     }
+    
+    
+    //New functions added : 
+    public TeamParams getTeamParams() {
+        return this.teamParams;
+    }
+
+    public void setTeamParams(TeamParams teamParams) {
+        this.teamParams = teamParams;
+    }
+    /*-----------------------*/
+    
+    
+    
     
 }

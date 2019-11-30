@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./instructorOperationsChoices.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    
+    <ui:define name="content">
+        <f:view>
+
+            <h:form prependId="false">
+                <h1>Fill in the new team creation parameters</h1>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Minimum of students per team : "></h:outputLabel>
+                    <h:inputText id="minStudents" value="#{teamParamsData.minStudents}">
+                        <f:validateLength minimum="1" maximum="10"/>
+                    </h:inputText>
+                    
+                    
+                </h:panelGrid>
+                
+                <h:panelGrid columns ="2">
+                    <h:outputLabel value="Maximum of students per team : "></h:outputLabel>
+                    <h:inputText id="maxStudents" value="#{teamParamsData.maxStudents}">
+                        <f:validateLength minimum="1" maximum="10"/>
+                    </h:inputText>
+                    
+                </h:panelGrid>
+                
+             
+                <h:panelGrid columns ="2">
+                    <h:outputLabel value="Course id :  "></h:outputLabel>
+                    <h:inputText id="courseId" value="#{teamParamsData.courseCode}"></h:inputText>
+                </h:panelGrid>
+                    
+                <h:commandButton value="Add Team Parameters" type="command" actionListener="#{instructorControl.setupTeamParams}">
+                    <f:ajax execute="minStudents maxStudents courseId" render="results"/>
+                </h:commandButton>
+                <h:commandButton value="Cancel" type="reset" />
+                
+                <div>
+                    <hr/>
+                    <hr/>
+                <h:panelGroup id="results">
+                    
+                    <h:outputText rendered="true" style="color:red" id="resultMessage" value="#{teamParamsData.submitMessage}"/>
+                </h:panelGroup>
+                </div>
+            </h:form>
+        </f:view>
+    </ui:define>
+
+</ui:composition>

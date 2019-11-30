@@ -1,11 +1,19 @@
 package persistence;
 
 import beans.CourseData;
+import beans.TeamData;
+import beans.TeamParamsData;
+
+
+import persistence.Course;
+import persistence.TeamParams;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
@@ -15,11 +23,111 @@ import javax.transaction.UserTransaction;
 
 
 public class DBHelper {
+    
+    //Course related db functions
     public static Course findCourse(EntityManager em,String courseCode) {
         Course u = em.find(Course.class, courseCode);
         return u;
     }
     
+    public static List<Course> findCourses(EntityManager em) {
+        TypedQuery<Course> query;
+        query = em.createQuery("SELECT c FROM Course c", Course.class);
+        List<Course> results = query.getResultList();
+        return results;
+    }
+    
+    public static boolean addCourse(EntityManager em, UserTransaction utx, CourseData courseData) {
+        try {
+            utx.begin();
+            Course nCourse = new Course();
+            nCourse.setCourseCode(courseData.getCourseCode());
+            em.persist(nCourse);
+            utx.commit();
+            return true;
+        } catch (IllegalArgumentException | NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+   
+    //Team related db functions
+    /**
+     * fetch team from database and returns it
+     * @param em
+     * @param teamName
+     * @return Team
+     */
+    public static Team findTeam(EntityManager em,String teamName) {
+        Team u = em.find(Team.class, teamName);
+        return u;
+    }
+    
+    
+   /**
+    * Add new Team
+    * @param em
+    * @param utx
+    * @param teamData
+    * @return 
+    */
+   public static boolean addTeam(EntityManager em, UserTransaction utx, TeamData teamData) {
+        try {
+            utx.begin();
+            Team newTeam = new Team();
+            //Team.setMinimumMembers(teamData.)
+            newTeam.setTeamName(teamData.getTeamName());
+            em.persist(newTeam);
+            utx.commit();
+            return true;
+        } catch (IllegalArgumentException | NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+   
+   //Team parameters related functions 
+   
+   //1- create new team parameters
+   //2 - set up parameters and associate course to new parameters 
+   //3 - associate course with new instance of the team parameters
+   /**
+    * add new Team Params and create association with "Course"
+    * @param em
+    * @param utx
+    * @param teamParamsData
+    * @param course
+    * @return 
+    */
+   public static boolean addTeamParams(EntityManager em, UserTransaction utx, TeamParamsData teamParamsData ){
+   
+       try {
+           
+            utx.begin();
+            TeamParams newParams = new TeamParams();
+            Course newCourse = em.find(Course.class, teamParamsData.getCourseCode());
+            newParams.modifyParams(teamParamsData,newCourse);
+            newCourse.setTeamParams(newParams);
+            em.persist(newParams);
+            utx.commit();
+            return true;
+        } catch (IllegalArgumentException | NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+       
+       
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 //    public static List findUsersByName(EntityManager em,String name) {
 //        Query query = em.createQuery(
 //                "SELECT u FROM User u" +
@@ -38,17 +146,7 @@ public class DBHelper {
 //        return results;
 //    }
 
-   public static boolean addCourse(EntityManager em, UserTransaction utx, CourseData courseData) {
-        try {
-            utx.begin();
-            Course nCourse = new Course();
-            nCourse.setCourseCode(courseData.getCourseCode());
-            em.persist(nCourse);
-            utx.commit();
-            return true;
-        } catch (IllegalArgumentException | NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
-            ex.printStackTrace();
-        }
-        return false;
-    }
+   
+   
+   
 }

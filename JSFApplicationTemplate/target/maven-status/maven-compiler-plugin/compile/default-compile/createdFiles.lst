@@ -1,4 +1,10 @@
+control\InstructorOperationsControl.class
 persistence\DBHelper.class
-persistence\Course.class
 beans\CourseData.class
+persistence\TeamParams.class
+beans\TeamData.class
+beans\TeamParamsData.class
+persistence\Course.class
+persistence\Team.class
 control\LookupControl.class
+control\StudenOperationsController.class
