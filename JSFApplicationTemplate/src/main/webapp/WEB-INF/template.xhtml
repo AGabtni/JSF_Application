@@ -17,6 +17,12 @@
         <div id="top" class="top">
             <ui:insert name="top">
                 <div>
+                    <h:form>
+                <h:commandButton value="Logout" type="command"  action="#{loginBean.logout}"> 
+                </h:commandButton> 
+                    </h:form>
+                </div>
+                <div>
                     <h1><BIG>TCS</BIG></h1>
                 </div>
             </ui:insert>

@@ -1,10 +1,14 @@
 control\InstructorOperationsControl.class
+filters\AuthenticationFilter.class
 persistence\DBHelper.class
 beans\CourseData.class
 persistence\TeamParams.class
 beans\TeamParamsData.class
+beans\SignInBean.class
 control\StudenOperationsController.class
-persistence\User.class
+beans\DateValidator.class
+beans\LoginBean.class
+persistence\UserAccount.class
 beans\TeamData.class
 persistence\Course.class
 persistence\Team.class
