@@ -25,14 +25,16 @@
             <div id="left">
                 <ui:insert name="left">
                 <ul style="list-style-type:none;" class="left-menu-list"> 
-                 <li><h:link outcome="index" value="Index"/></li>
-                 <li><h:link outcome="createTeam.xhtml" value="Create Team"/></li>
-
+                    <li><h:link outcome="index" value="Index"/></li>
+                    <li><h:link outcome="createTeam.xhtml" value="Create Team"/></li>
+                    <li><h:link outcome="displayTeams.xhtml" value="Display Team"/></li>
                 </ul>
                 </ui:insert>
             </div>
             <div id="content" class="left_content">
-                <ui:insert name="content">Content</ui:insert>
+                <ui:insert name="content">
+                    <h1>Selected course : #{studentControl.selectedCourse}</h1>
+                </ui:insert>
             </div>
         </div>
     </h:body>

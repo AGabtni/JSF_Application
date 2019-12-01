@@ -23,10 +23,8 @@
         <div>
             <div id="left">
                 <ui:insert name="left">
-                    <ul style="list-style-type:none; width: 20%; padding: 10px;" class="left-menu-list">
-                        <li><h:link outcome="instructorOperationsChoices.xhtml" value="Instructor Operations"/></li>
-                        <li><h:link outcome="studentOperationsChoices.xhtml" value="Student Operations"/></li>
-                    </ul>
+                    <li><h:link outcome="index" value="Index"/></li>
+                    
                 </ui:insert>
             </div>
             <div>
@@ -37,6 +35,9 @@
                     <ui:insert name="content">
                         
                         <h1 style="font-weight: 900;">Courses available</h1>
+                        <h:panelGroup id="results">
+                            <h:outputText style="color: red;" rendered="#{courseData.showResults}" value="#{courseData.addstatus}"></h:outputText>
+                        </h:panelGroup>
                         <h:dataTable value="#{courseData.lookupResults}" var="course">
                             <h:column>
                                 <div style="width: 150px;
@@ -47,8 +48,21 @@
                                      background-color: yellowgreen;
                                      padding: 50px;">
                                     <h:link style="color: midnightblue; font-weight: 900; font-size: large" value="#{course.courseCode}" outcome="course">
-                                        <f:param name="id" value="#{course.courseCode}" />
-                                    </h:link>
+                                        
+                                        
+                                        <h:button style="margin-top: 20px;border-radius: 5px" 
+                                                   value="Instructor Operations" 
+                                                   outcome="instructorOperationsChoices.xhtml"
+                                                   onclick="">
+                                            <f:param name="id" value="#{course.courseCode}" />
+                                        </h:button>
+                                        <h:button style="margin-top: 20px;border-radius: 5px" value="Student Operations" 
+                                                  outcome="studentOperationsChoices.xhtml"
+                                                  onclick="#{studentControl.setSelectedCourse(course.courseCode)}">
+                                            <f:param name="id" value="#{course.courseCode}" />
+                                        </h:button>
+                                        
+                                     </h:link>
                                 </div>
                             </h:column>
                         </h:dataTable>

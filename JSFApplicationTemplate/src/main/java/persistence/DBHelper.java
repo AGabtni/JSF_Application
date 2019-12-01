@@ -37,6 +37,7 @@ public class DBHelper {
         return results;
     }
     
+    
     public static boolean addCourse(EntityManager em, UserTransaction utx, CourseData courseData) {
         try {
             utx.begin();
@@ -63,6 +64,13 @@ public class DBHelper {
         return u;
     }
     
+    public static List<Team> findTeams(EntityManager em){
+        
+        TypedQuery<Team> query;
+        query = em.createQuery("SELECT team FROM Team team", Team.class);
+        List<Team> results = query.getResultList();
+        return results;
+    }
     
    /**
     * Add new Team

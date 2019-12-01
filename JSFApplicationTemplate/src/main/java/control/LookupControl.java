@@ -20,7 +20,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import persistence.DBHelper;
 import persistence.Course;
-import persistence.Team;
 
 
 @Named(value = "lookupControl")
@@ -29,8 +28,6 @@ public class LookupControl implements Serializable {
     @Inject
     private CourseData courseData;
     
-    @Inject
-    private TeamData teamData;
 
     @PersistenceContext
     EntityManager em;
@@ -56,8 +53,7 @@ public class LookupControl implements Serializable {
         
         List<Course> courses = DBHelper.findCourses(em);
         courseData.setLookupResults(courses);
-        
-        System.out.println("Courses found "+courses.size());
+        courseData.setAddstatus(courses.size()+" courses found .");
         
     }
     public void add() {
@@ -68,26 +64,7 @@ public class LookupControl implements Serializable {
         }
     }
     
-    /**
-     * 
-     * Creates a new team (INCOMPLETE)
-     */
-    public void addTeam(){
-
-        if( DBHelper.findTeam(em, teamData.getTeamName()) == null){
-            if(DBHelper.addTeam(em,utx,teamData)){
-                teamData.setAddstatus("The Team Was Successfuly Added");
-                
-           }else{
-                teamData.setAddstatus("Failed to add the Team");
-            }
-        
-        }else{
-            teamData.setAddstatus("Team name already in use");
-        }
-       
-        
-    }
+    
     
         /**
      * Find a user by id and check if any that the other fields are valid
@@ -101,14 +78,7 @@ public class LookupControl implements Serializable {
         return result;  
     }
     
-    private List<Team> getTeams(EntityManager em,TeamData teamData) {
-        ArrayList<Team> result = new ArrayList<>();
-        Team team = DBHelper.findTeam(em,teamData.getTeamName());
-        if (team != null && team.matches(teamData)) {
-            result.add(team);  
-        }
-        return result;  
-    }
+   
     
 //    private List<Course> checkResults(List<Course> allresults,CourseData userData) {
 //        ArrayList<Course> results = new ArrayList<>();

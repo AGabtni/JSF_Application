@@ -30,7 +30,8 @@ public class CourseData {
     public String getCourseCode() {
         return courseCode;
     }
-
+    
+    
     /**
      * @param courseCode the courseCode to set
      */
@@ -38,6 +39,9 @@ public class CourseData {
         this.courseCode = courseCode;
     }
 
+    public List<Course> getLookupResults() {
+        return lookupResults;
+    }
     public void setLookupResults(List<Course> results) {
         this.lookupResults = results;
     }
@@ -50,9 +54,7 @@ public class CourseData {
         this.addstatus = addstatus;
     }
     
-    public List<Course> getLookupResults() {
-        return lookupResults;
-    }
+    
     // show results if any
     public boolean getShowResults() {
         return (lookupResults != null) && !lookupResults.isEmpty();

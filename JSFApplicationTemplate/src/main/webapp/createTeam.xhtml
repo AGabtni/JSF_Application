@@ -16,10 +16,10 @@
                 <h1>Enter your new team Name</h1>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Team Name"></h:outputLabel>
-                    <h:inputText id="teamName" value="#{teamData.teamName}"></h:inputText>
+                    <h:inputText id="teamName" required="true" value="#{teamData.teamName}"></h:inputText>
 
                 </h:panelGrid>
-                <h:commandButton value="Add Team" type="command" actionListener="#{lookupControl.addTeam}">
+                <h:commandButton value="Add Team" type="command" actionListener="#{studentControl.addTeam}">
                     <f:ajax execute="teamName" render="results"/>
                 </h:commandButton>
                 <h:commandButton value="Cancel" type="reset" />

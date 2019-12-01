@@ -1,10 +1,9 @@
 package control;
-import beans.CourseData;
+
 import beans.TeamData;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -12,10 +11,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import persistence.DBHelper;
-import persistence.Course;
 import persistence.Team;
 
-import beans.TeamParamsData;
 
 /**
  *
@@ -25,11 +22,67 @@ import beans.TeamParamsData;
 
 @Named(value = "studentControl")
 @RequestScoped
-
-/**
- *
- * @author Ahmed
- */
 public class StudenOperationsController {
+    
+    
+     @Inject
+    private TeamData teamData;
+
+    @PersistenceContext
+    EntityManager em;
+    @Resource
+    private javax.transaction.UserTransaction utx;
+    private String selectedCourseCode;
+    
+    public StudenOperationsController(){
+    }
+    
+    
+    /**
+     * 
+     * Creates a new team (INCOMPLETE)
+     */
+    public void addTeam(){
+        if(!teamData.getTeamName().equals("")){
+            if( DBHelper.findTeam(em, teamData.getTeamName()) == null){
+                if(DBHelper.addTeam(em,utx,teamData)){
+                    teamData.setAddstatus("The Team Was Successfuly Added");
+
+                }else{
+                    teamData.setAddstatus("Failed to add the Team");
+                }
+        
+            }else{
+                teamData.setAddstatus("Team name already in use");
+            }
+            
+        }else{
+            
+            teamData.setAddstatus("Team name field cannot be empty !");
+        }
+        
+       
+        
+    }
+    
+    public void displayTeams(){
+        List<Team> teams = DBHelper.findTeams(em);
+        teamData.setTeamsFound(teams);
+        teamData.setAddstatus(teams.size() +" teams found ");
+        
+    }
+    
+    public void setSelectedCourse(String courseCode){
+       
+        this.selectedCourseCode = courseCode;
+        System.out.println("Hey "+courseCode);
+    }
+    
+    public String getSelectedCourse(){
+        
+        System.out.println(this.selectedCourseCode);
+        return this.selectedCourseCode;
+    }
+    
     
 }
