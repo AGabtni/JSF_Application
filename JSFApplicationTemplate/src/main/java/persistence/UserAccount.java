@@ -7,7 +7,6 @@
 package persistence;
 
 import java.io.Serializable;
-import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -37,8 +36,10 @@ public class UserAccount implements Serializable {
     private String userId;
     private String firstname;
     private String lastname;
-    private Date birthDate;
-    private String city;
+    private String email;
+    private boolean isStudent;
+    private boolean isTeacher;
+    private boolean isTA;
     @Lob
     private byte[] password; // salted + hashed password
     @Lob
@@ -108,33 +109,43 @@ public class UserAccount implements Serializable {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-
+    
     /**
-     * @return the birthDate
+     * @return the email
      */
-    public Date getBirthDate() {
-        return birthDate;
+    public String getEmail() {
+        return email;
     }
 
     /**
-     * @param birthDate the birthDate to set
+     * @param email the email to set
      */
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    public boolean isIsStudent() {
+        return isStudent;
     }
 
-    /**
-     * @return the city
-     */
-    public String getCity() {
-        return city;
+    public void setIsStudent(boolean isStudent) {
+        this.isStudent = isStudent;
     }
 
-    /**
-     * @param city the city to set
-     */
-    public void setCity(String city) {
-        this.city = city;
+    public boolean isIsTeacher() {
+        return isTeacher;
+    }
+
+    public void setIsTeacher(boolean isTeacher) {
+        this.isTeacher = isTeacher;
+    }
+
+    public boolean isIsTA() {
+        return isTA;
+    }
+
+    public void setIsTA(boolean isTA) {
+        this.isTA = isTA;
     }
 
     /**

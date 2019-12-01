@@ -26,18 +26,32 @@
                     <h:inputText id="lname" value="#{signInBean.lastname}" required="true" requiredMessage="Please enter Last Name">
                     </h:inputText>
                     <h:message id="lnameMsg" for="lname" errorStyle="color:red; display:block" styleClass="errorMessage"/>
-                    <h:outputText value="Birth Date"></h:outputText>
-                    <h:inputText id="birthdate" value="#{signInBean.birthDate}" 
-                                 required="true" 
-                                 requiredMessage="Please enter Birth Date">
-                        <f:validator validatorId="dateValidator"/>
-                    </h:inputText>
-                    <h:message id="birthdateMsg" for="birthdate" errorStyle="color:red; display:block" styleClass="errorMessage"/>
                     
-                    <h:outputText value="City"></h:outputText>
-                    <h:inputText id="city" value="#{signInBean.city}" required="true" requiredMessage="Please enter City">
+                    
+                    <h:outputText value="Email"></h:outputText>
+                    <h:inputText id="email" value="#{signInBean.email}" required="true" requiredMessage="Please enter your email">
                     </h:inputText>
-                    <h:message id="cityMsg" for="city" errorStyle="color:red; display:block" styleClass="errorMessage"/>
+                    <h:message id="emailMsg" for="email" errorStyle="color:red; display:block" styleClass="errorMessage"/>
+                    
+                    
+                    
+                    
+                    <h:outputText value="Student"></h:outputText>
+                    <h:selectBooleanCheckbox id="isStudent" value="#{signInBean.isStudent}">
+                    </h:selectBooleanCheckbox>
+                    <div/>
+                    
+                    <h:outputText value="TA"></h:outputText>
+                    <h:selectBooleanCheckbox id="isTA" value="#{signInBean.isTA}">
+                    </h:selectBooleanCheckbox>
+                    <div/>
+                    
+                    <h:outputText value="Teacher"></h:outputText>
+                    <h:selectBooleanCheckbox id="isTeacher" value="#{signInBean.isTeacher}">
+                    </h:selectBooleanCheckbox>
+                    <div/>
+                    
+                    
                     
                     <h:outputText value="Password"></h:outputText>
                     <h:inputSecret id="passwd" value="#{signInBean.password}" required="true" requiredMessage="Please enter Password">
@@ -45,9 +59,9 @@
                     <h:message id="passwdMsg" for="passwd" errorStyle="color:red; display:block" styleClass="errorMessage"/>
                  
                     </h:panelGrid>
-                <h:commandButton value="Add" type="command"  actionListener="#{signInBean.addUser}">
-                   <f:ajax execute="id fname lname birthdate city passwd" 
-                           render="status idMsg fnameMsg lnameMsg birthdateMsg cityMsg passwdMsg"/>
+                <h:commandButton value="Add" type="command"  action="#{signInBean.addUser}">
+                   <f:ajax execute="id fname lname email isStudent isTA isTeacher passwd" 
+                           render="status idMsg fnameMsg lnameMsg emailMsg passwdMsg"/>
                 </h:commandButton>
                 <h:commandButton value="Cancel" type="reset" />
                 

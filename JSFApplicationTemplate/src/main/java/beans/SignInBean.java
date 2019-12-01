@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package beans;
 
 import java.io.UnsupportedEncodingException;
@@ -16,9 +15,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpSession;
 import persistence.UserAccount;
 
 /**
@@ -28,22 +29,65 @@ import persistence.UserAccount;
 @Named(value = "signInBean")
 @RequestScoped
 public class SignInBean {
+
     private String userId;
     private String firstname;
     private String lastname;
-    private String birthDate;
-    private String city;
     private String password;
+    private String email;
+    private boolean isStudent;
+    private boolean isTeacher;
+    private boolean isTA;
+
     @PersistenceContext(unitName = "HalfFull_TeamProject_war_1.0-SNAPSHOTPU")
     private EntityManager em;
     @Resource
     private javax.transaction.UserTransaction utx;
-    
+
     private String status;
+
     /**
      * Creates a new instance of SignInBean
      */
     public SignInBean() {
+    }
+
+    public boolean isIsStudent() {
+        return isStudent;
+    }
+
+    public void setIsStudent(boolean isStudent) {
+        this.isStudent = isStudent;
+    }
+
+    public boolean isIsTeacher() {
+        return isTeacher;
+    }
+
+    public void setIsTeacher(boolean isTeacher) {
+        this.isTeacher = isTeacher;
+    }
+
+    public boolean isIsTA() {
+        return isTA;
+    }
+
+    public void setIsTA(boolean isTA) {
+        this.isTA = isTA;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
@@ -89,34 +133,6 @@ public class SignInBean {
     }
 
     /**
-     * @return the birthDate
-     */
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    /**
-     * @param birthDate the birthDate to set
-     */
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    /**
-     * @return the city
-     */
-    public String getCity() {
-        return city;
-    }
-
-    /**
-     * @param city the city to set
-     */
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    /**
      * @return the password
      */
     public String getPassword() {
@@ -136,7 +152,7 @@ public class SignInBean {
     public String getStatus() {
         return status;
     }
-    
+
     public void persist(Object object) {
         try {
             utx.begin();
@@ -147,15 +163,17 @@ public class SignInBean {
             throw new RuntimeException(e);
         }
     }
-    
-    public void addUser() {
+
+    public String addUser() {
         try {
             UserAccount acc = new UserAccount();
             acc.setUserId(userId);
             acc.setFirstname(firstname);
             acc.setLastname(lastname);
-            acc.setCity(city);
-            acc.setBirthDate(Date.valueOf(birthDate));
+            acc.setEmail(email);
+            acc.setIsTeacher(isTeacher);
+            acc.setIsStudent(isStudent);
+            acc.setIsTA(isTA);
             // randomly generate salt value
             final Random r = new SecureRandom();
             byte[] salt = new byte[32];
@@ -163,16 +181,20 @@ public class SignInBean {
             String saltString = new String(salt, "UTF-8");
             // hash password using SHA-256 algorithm
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            String saltedPass = saltString+password;
+            String saltedPass = saltString + password;
             byte[] passhash = digest.digest(saltedPass.getBytes("UTF-8"));
             acc.setSalt(salt);
             acc.setPassword(passhash);
             persist(acc);
-            status="New Account Created Fine";
-        } catch (UnsupportedEncodingException | NoSuchAlgorithmException | RuntimeException ex ) {
+            status = "New Account Created Fine";
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+            session.setAttribute("User", acc);
+            return "registered";
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException | RuntimeException ex) {
             Logger.getLogger(SignInBean.class.getName()).log(Level.SEVERE, null, ex);
-            status="Error While Creating New Account";
+            status = "Error While Creating New Account";
+            return "failure";
         }
     }
-    
+
 }

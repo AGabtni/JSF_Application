@@ -3,13 +3,17 @@ filters\AuthenticationFilter.class
 persistence\DBHelper.class
 beans\CourseData.class
 persistence\TeamParams.class
+persistence\TeamParams_.class
 beans\TeamParamsData.class
+persistence\Course_.class
 beans\SignInBean.class
 control\StudenOperationsController.class
+persistence\UserAccount_.class
 beans\DateValidator.class
 beans\LoginBean.class
 persistence\UserAccount.class
 beans\TeamData.class
 persistence\Course.class
 persistence\Team.class
+persistence\Team_.class
 control\LookupControl.class

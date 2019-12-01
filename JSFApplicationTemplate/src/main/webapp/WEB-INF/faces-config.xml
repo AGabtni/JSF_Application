@@ -6,27 +6,34 @@
     <navigation-rule>
         <from-view-id>/protected/*</from-view-id>
         <navigation-case>
-            <from-outcome>signIn</from-outcome>
-            <to-view-id>/signIn.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>login</from-outcome>
-            <to-view-id>/login.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>logout</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/public/*</from-view-id>
+        <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>signIn</from-outcome>
-            <to-view-id>/signIn.xhtml</to-view-id>
+            <from-action>#{loginBean.login}</from-action>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/protected/welcome.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>login</from-outcome>
+            <from-action>#{loginBean.login}</from-action>
+            <from-outcome>failure</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/signIn.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{signInBean.addUser}</from-action>
+            <from-outcome>registered</from-outcome>
+            <to-view-id>/protected/welcome.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{signInBean.addUser}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/signIn.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

@@ -62,7 +62,7 @@ public class AuthenticationFilter implements Filter {
             res.sendRedirect(loginURL);
         } else {
             chain.doFilter(request, response);
-        }  
+        }
             
     }
 
