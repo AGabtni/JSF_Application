@@ -31,6 +31,7 @@ public class LoginBean {
     private String userId;
     private String password;
     private String status;
+    private boolean isTeamMember;
     @PersistenceContext(unitName = "HalfFull_TeamProject_war_1.0-SNAPSHOTPU")
     private EntityManager em;
     @Resource
@@ -75,11 +76,22 @@ public class LoginBean {
     public String getStatus() {
         return status;
     }
-
+    
+    public boolean getIsTeamMember(){
+        
+        return this.isTeamMember;
+    }
+    
+    public void setIsTeamMember(boolean b){
+        
+        this.isTeamMember = b;
+    }
+     
     public String login() {
          UserAccount acc = em.find(UserAccount.class, userId);
          if (acc != null) {
              try {
+                 
                  // check password
                  byte[] salt = acc.getSalt();
                  String saltString = new String(salt, "UTF-8");
@@ -95,6 +107,13 @@ public class LoginBean {
                  } else {
                     status="Invalid Login, Please Try again"; 
                  }
+                 
+                 //check if user has a team :
+                 if(acc.getTeam()!=null)
+                     this.setIsTeamMember(true);
+                 else
+                     this.setIsTeamMember(true);
+                             
              } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
                  Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
              }

@@ -30,17 +30,17 @@
         <div>
             <div id="left">
                 <ui:insert name="left">
-                <ul style="list-style-type:none;" class="left-menu-list"> 
-                    <li><h:link outcome="index" value="Index"/></li>
-                    <li><h:link outcome="createTeam.xhtml" value="Create Team"/></li>
-                    <li><h:link outcome="displayTeams.xhtml" value="Display Team"/></li>
+               <ul style="list-style-type:none;" class="left-menu-list"> 
+                 <li><h:link outcome="welcome" value="Index"/></li>
+                 
+                 <li><h:link outcome="teamParams.xhtml" value="Set up teams params"/></li>
+                 <li><h:link outcome="" value="Display teams"/></li>
+
                 </ul>
                 </ui:insert>
             </div>
             <div id="content" class="left_content">
-                <ui:insert name="content">
-                    <h1>Selected course : #{studentControl.selectedCourse}</h1>
-                </ui:insert>
+                <ui:insert name="content">Content</ui:insert>
             </div>
         </div>
     </h:body>

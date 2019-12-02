@@ -24,6 +24,13 @@ import javax.transaction.UserTransaction;
 
 public class DBHelper {
     
+    
+    //find User
+    public static UserAccount findUser(EntityManager em, String userId){
+        UserAccount u = em.find(UserAccount.class, userId);
+        return u;
+    } 
+    
     //Course related db functions
     public static Course findCourse(EntityManager em,String courseCode) {
         Course u = em.find(Course.class, courseCode);
@@ -81,10 +88,22 @@ public class DBHelper {
     */
    public static boolean addTeam(EntityManager em, UserTransaction utx, TeamData teamData) {
         try {
+             
             utx.begin();
+            UserAccount creator = em.find(UserAccount.class, teamData.getUserId());
+            if(creator.getTeam() != null){
+                
+                return false;
+            }
             Team newTeam = new Team();
+            
             //Team.setMinimumMembers(teamData.)
+            
             newTeam.setTeamName(teamData.getTeamName());
+            newTeam.setMembers(creator);
+            creator.setTeam(newTeam);
+            
+            
             em.persist(newTeam);
             utx.commit();
             return true;

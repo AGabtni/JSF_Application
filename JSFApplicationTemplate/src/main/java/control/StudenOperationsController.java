@@ -1,6 +1,7 @@
 package control;
 
 import beans.TeamData;
+import beans.LoginBean;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import persistence.DBHelper;
 import persistence.Team;
+
 
 
 /**
@@ -27,6 +29,9 @@ public class StudenOperationsController {
     
      @Inject
     private TeamData teamData;
+     
+     @Inject
+     private LoginBean loginData;
 
     @PersistenceContext
     EntityManager em;
@@ -45,8 +50,10 @@ public class StudenOperationsController {
     public void addTeam(){
         if(!teamData.getTeamName().equals("")){
             if( DBHelper.findTeam(em, teamData.getTeamName()) == null){
+                
                 if(DBHelper.addTeam(em,utx,teamData)){
-                    teamData.setAddstatus("The Team Was Successfuly Added");
+                    loginData.setIsTeamMember(true);
+                    teamData.setAddstatus("The Team Was Successfuly Added by " + teamData.getUserId());
 
                 }else{
                     teamData.setAddstatus("Failed to add the Team");
@@ -67,6 +74,7 @@ public class StudenOperationsController {
     
     public void displayTeams(){
         List<Team> teams = DBHelper.findTeams(em);
+        
         teamData.setTeamsFound(teams);
         teamData.setAddstatus(teams.size() +" teams found ");
         

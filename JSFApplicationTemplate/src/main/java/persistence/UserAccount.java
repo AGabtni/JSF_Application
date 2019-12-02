@@ -44,7 +44,9 @@ public class UserAccount implements Serializable {
     private byte[] password; // salted + hashed password
     @Lob
     private byte[] salt; // the salt used for this account
-
+    private Team team;
+    
+    
     public String getUserId() {
         return userId;
     }
@@ -174,6 +176,16 @@ public class UserAccount implements Serializable {
      */
     public void setSalt(byte[] salt) {
         this.salt = salt;
+    }
+    
+    public Team getTeam(){
+        
+        return this.team;
+    }
+    
+    public void setTeam(Team team){
+        
+        this.team = team;
     }
     
 }

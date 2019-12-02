@@ -9,7 +9,6 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import persistence.Team;
-
 /**
  *
  * @author Ahmed
@@ -21,7 +20,7 @@ public class TeamData {
     private String teamName;
     private String addstatus;
     private List<Team> teams;
-    
+    private String userId;
     public TeamData() {
     }
 
@@ -59,5 +58,18 @@ public class TeamData {
         return (teams != null) && !teams.isEmpty();
     }
     
+   
+    
+    public void setUserId(String id){
+        
+        this.userId = id;
+    }
+    public String getUserId(){
+        
+        return this.userId;
+    }
+    
+    
+  
    
 }

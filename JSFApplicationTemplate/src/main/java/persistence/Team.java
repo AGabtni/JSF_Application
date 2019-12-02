@@ -7,8 +7,12 @@ package persistence;
 import beans.TeamData;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -22,8 +26,13 @@ public class Team implements Serializable {
     private String teamName;
     private int minStudents;
     private int maxStudents;
-    
+    @OneToMany
+    private List<UserAccount> members;
+ 
     public Team(){
+        
+        this.members = new ArrayList<>();
+        
     }
 
     public String getTeamName() {
@@ -70,5 +79,18 @@ public class Team implements Serializable {
         }
         return true;
     }
+    
+    public List<UserAccount> getMembers(){
+        
+        return this.members;
+    }
+    
+    public void setMembers(UserAccount user){
+        
+        this.members.add(user);
+    }
+    
+    
+    
     
 }

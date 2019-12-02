@@ -9,7 +9,7 @@
     </f:metadata>
     <body>
 
-        <ui:composition template="../WEB-INF/studentOperationsChoices.xhtml">
+        <ui:composition template="studentOperationsChoices.xhtml">
 
          <ui:define name="content">
             <h1 style="font-weight: 900;">Teams available</h1>
@@ -21,15 +21,30 @@
                 <h:column>
                     <div style="width: 75px;
                             height: 50px;
-                            text-align: center;
+                            align-items: center;
                             border-radius:5px; 
                             border-color: black; 
                             background-color: white;
                             padding: 50px;">
-                        <h:link style="color: red" value="#{team.teamName}" outcome="team">
+                        <h:link style="color: red" value="#{team.teamName}">
                             <f:param  name="id" value="#{team.teamName}" />
-                            <h:button style="margin-top: 20px;border-radius: 5px" value="Join Team"></h:button>
                         </h:link>
+                        
+                        <h:outputText value="Members : " style="padding:20px;font-weight: 900"></h:outputText>
+                        
+                        <h:dataTable value="#{team.members}" var="member">
+                            
+                            <h:column>
+                                
+                                <h:outputText value="#{member.firstname}"></h:outputText>
+                            </h:column>
+                            
+                        </h:dataTable>
+                        <h:button 
+                            rendered="#{loginBean.isTeamMember}"
+                            style="margin-top: 20px;border-radius: 5px" value="Join Team">
+                                
+                        </h:button>
                     </div>
                 </h:column>
             </h:dataTable>
