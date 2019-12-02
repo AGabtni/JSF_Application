@@ -36,6 +36,9 @@ public class LoginBean {
     private EntityManager em;
     @Resource
     private javax.transaction.UserTransaction utx;
+    private String selectedCourseCode;
+
+    
     /**
      * Creates a new instance of LoginBean
      */
@@ -86,7 +89,18 @@ public class LoginBean {
         
         this.isTeamMember = b;
     }
-     
+    
+    public void setSelectedCourse(String courseCode){
+       
+        this.selectedCourseCode = courseCode;
+        
+    }
+    
+    public String getSelectedCourse(){
+        
+        return this.selectedCourseCode;
+    }
+    
     public String login() {
          UserAccount acc = em.find(UserAccount.class, userId);
          if (acc != null) {

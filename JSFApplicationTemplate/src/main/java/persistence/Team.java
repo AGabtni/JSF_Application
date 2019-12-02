@@ -24,11 +24,10 @@ public class Team implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     private String teamName;
-    private int minStudents;
-    private int maxStudents;
     @OneToMany
     private List<UserAccount> members;
-    
+    private TeamParams parameters;
+    private Course course;
     public Team(){
         
         this.members = new ArrayList<>();
@@ -90,6 +89,28 @@ public class Team implements Serializable {
         this.members.add(user);
     }
     
+    
+    public TeamParams getParameters(){
+        
+        return this.parameters;
+    }
+    
+    public void setParameters(TeamParams params){
+        
+        this.parameters = params;
+    }
+    
+    
+    public Course getCourse(){
+        
+        return this.course;
+    }
+    
+    
+    public void setCourse(Course course){
+        
+        this.course = course;
+    }
     
     
     

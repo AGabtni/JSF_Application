@@ -54,14 +54,14 @@
                                                     style="margin-top: 20px;border-radius: 5px" 
                                                    value="Instructor Operations" 
                                                    outcome="instructorOperationsChoices.xhtml"
-                                                   onclick="">
-                                            <f:param name="id" value="#{course.courseCode}" />
+                                                   >
+                                            <f:param name="courseId" value="#{course.courseCode}" />
                                         </h:button>
                                         <h:button rendered ="#{sessionScope.User.isStudent}"
                                                   style="margin-top: 20px;border-radius: 5px" value="Student Operations" 
                                                   outcome="studentOperationsChoices.xhtml"
-                                                  onclick="#{studentControl.setSelectedCourse(course.courseCode)}">
-                                            <f:param name="id" value="#{course.courseCode}" />
+                                                  >
+                                            <f:param name="courseId" value="#{course.courseCode}" />
                                         </h:button>
                                 </div>
                             </h:column>

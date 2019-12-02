@@ -37,7 +37,7 @@ public class StudenOperationsController {
     EntityManager em;
     @Resource
     private javax.transaction.UserTransaction utx;
-    private String selectedCourseCode;
+    
     
     public StudenOperationsController(){
     }
@@ -51,8 +51,10 @@ public class StudenOperationsController {
         if(!teamData.getTeamName().equals("")){
             if( DBHelper.findTeam(em, teamData.getTeamName()) == null){
                 
-                if(DBHelper.addTeam(em,utx,teamData)){
+                
+                if(DBHelper.addTeam(em,utx,teamData,loginData.getSelectedCourse())){
                     loginData.setIsTeamMember(true);
+                    
                     teamData.setAddstatus("The Team Was Successfuly Added by " + teamData.getUserId());
 
                 }else{
@@ -80,17 +82,7 @@ public class StudenOperationsController {
         
     }
     
-    public void setSelectedCourse(String courseCode){
-       
-        this.selectedCourseCode = courseCode;
-        System.out.println("Hey "+courseCode);
-    }
     
-    public String getSelectedCourse(){
-        
-        System.out.println(this.selectedCourseCode);
-        return this.selectedCourseCode;
-    }
     
     
 }

@@ -4,7 +4,9 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+    <f:metadata>
+        <f:viewParam name="courseId" value="#{loginData.selectedCourse}"/>
+    </f:metadata>
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet library="css" name="default.css"/>
@@ -45,7 +47,7 @@
             </div>
             <div id="content" class="left_content">
                 <ui:insert name="content">
-                    <h1>Selected course : #{studentControl.selectedCourse}</h1>
+                    <h1>Selected course : #{loginData.selectedCourse}</h1>
                 </ui:insert>
             </div>
         </div>

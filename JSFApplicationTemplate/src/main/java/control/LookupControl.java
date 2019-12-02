@@ -34,6 +34,7 @@ public class LookupControl implements Serializable {
     @Resource
     private javax.transaction.UserTransaction utx;
     
+    
     /**
      * Creates a new instance of LookupControl
      */
@@ -58,9 +59,9 @@ public class LookupControl implements Serializable {
     }
     public void add() {
         if (DBHelper.addCourse(em,utx,courseData)) {
-            courseData.setAddstatus("The User Was Successfuly Added");
+            courseData.setAddstatus("The Course Was Successfuly Added");
         } else {
-            courseData.setAddstatus("Addition of the User Failed");
+            courseData.setAddstatus("Addition of the Course Failed");
         }
     }
     
@@ -78,13 +79,4 @@ public class LookupControl implements Serializable {
         return result;  
     }
     
-   
-    
-//    private List<Course> checkResults(List<Course> allresults,CourseData userData) {
-//        ArrayList<Course> results = new ArrayList<>();
-//        for (Course user: allresults) {
-//            if (user.matches(userData)) results.add(user);
-//        }
-//        return results;
-//    }
 }
