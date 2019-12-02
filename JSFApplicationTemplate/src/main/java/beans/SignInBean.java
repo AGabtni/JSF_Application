@@ -9,7 +9,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.sql.Date;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,9 +34,7 @@ public class SignInBean {
     private String lastname;
     private String password;
     private String email;
-    private boolean isStudent;
-    private boolean isTeacher;
-    private boolean isTA;
+    private String role;
 
     @PersistenceContext(unitName = "HalfFull_TeamProject_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -52,28 +49,12 @@ public class SignInBean {
     public SignInBean() {
     }
 
-    public boolean isIsStudent() {
-        return isStudent;
+    public String getRole() {
+        return role;
     }
 
-    public void setIsStudent(boolean isStudent) {
-        this.isStudent = isStudent;
-    }
-
-    public boolean isIsTeacher() {
-        return isTeacher;
-    }
-
-    public void setIsTeacher(boolean isTeacher) {
-        this.isTeacher = isTeacher;
-    }
-
-    public boolean isIsTA() {
-        return isTA;
-    }
-
-    public void setIsTA(boolean isTA) {
-        this.isTA = isTA;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     /**
@@ -171,9 +152,17 @@ public class SignInBean {
             acc.setFirstname(firstname);
             acc.setLastname(lastname);
             acc.setEmail(email);
-            acc.setIsTeacher(isTeacher);
-            acc.setIsStudent(isStudent);
-            acc.setIsTA(isTA);
+            acc.setIsStudent(false);
+            acc.setIsTA(false);
+            acc.setIsTeacher(false);
+
+            if (role.equalsIgnoreCase("1")) {
+                acc.setIsStudent(true);
+            } else if (role.equalsIgnoreCase("2")){
+                acc.setIsTA(true);
+            } else if (role.equalsIgnoreCase("3")) {
+                acc.setIsTeacher(true);
+            }
             // randomly generate salt value
             final Random r = new SecureRandom();
             byte[] salt = new byte[32];

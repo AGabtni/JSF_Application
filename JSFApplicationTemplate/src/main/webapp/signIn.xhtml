@@ -33,35 +33,25 @@
                     </h:inputText>
                     <h:message id="emailMsg" for="email" errorStyle="color:red; display:block" styleClass="errorMessage"/>
                     
-                    
-                    
-                    
-                    <h:outputText value="Student"></h:outputText>
-                    <h:selectBooleanCheckbox id="isStudent" value="#{signInBean.isStudent}">
-                    </h:selectBooleanCheckbox>
-                    <div/>
-                    
-                    <h:outputText value="TA"></h:outputText>
-                    <h:selectBooleanCheckbox id="isTA" value="#{signInBean.isTA}">
-                    </h:selectBooleanCheckbox>
-                    <div/>
-                    
-                    <h:outputText value="Teacher"></h:outputText>
-                    <h:selectBooleanCheckbox id="isTeacher" value="#{signInBean.isTeacher}">
-                    </h:selectBooleanCheckbox>
-                    <div/>
-                    
-                    
+                      
                     
                     <h:outputText value="Password"></h:outputText>
                     <h:inputSecret id="passwd" value="#{signInBean.password}" required="true" requiredMessage="Please enter Password">
                     </h:inputSecret>
                     <h:message id="passwdMsg" for="passwd" errorStyle="color:red; display:block" styleClass="errorMessage"/>
+                    
+                    <h:selectOneRadio id="role" value = "#{signInBean.role}" required="true" requiredMessage="Please enter your role"> 
+                        <f:selectItem itemValue = "1" itemLabel = "Student" /> 
+                        <f:selectItem itemValue = "2" itemLabel = "TA" />
+                        <f:selectItem itemValue = "3" itemLabel = "Teacher" />
+                    </h:selectOneRadio>
+                    <h:message id="roleMsg" for="role" errorStyle="color:red; display:block" styleClass="errorMessage"/>
+
                  
                     </h:panelGrid>
                 <h:commandButton value="Add" type="command"  action="#{signInBean.addUser}">
-                   <f:ajax execute="id fname lname email isStudent isTA isTeacher passwd" 
-                           render="status idMsg fnameMsg lnameMsg emailMsg passwdMsg"/>
+                   <f:ajax execute="id fname lname email passwd role" 
+                           render="status idMsg fnameMsg lnameMsg emailMsg passwdMsg roleMsg"/>
                 </h:commandButton>
                 <h:commandButton value="Cancel" type="reset" />
                 
