@@ -86,21 +86,32 @@ public class DBHelper {
     * @param teamData
     * @return 
     */
-   public static boolean addTeam(EntityManager em, UserTransaction utx, TeamData teamData) {
+   public static boolean addTeam(EntityManager em, UserTransaction utx, TeamData teamData, String courseId) {
         try {
              
             utx.begin();
             UserAccount creator = em.find(UserAccount.class, teamData.getUserId());
+
+            Course selectedCourse = em.find(Course.class, courseId);
+            
+            if(selectedCourse.getTeamParams() == null)
+                return false;
             if(creator.getTeam() != null){
                 
-                return false;
+                if(creator.getTeam().getCourse().equals(selectedCourse)){
+                    
+                    return false;
+                }
             }
-            Team newTeam = new Team();
             
+            Team newTeam = new Team();
             //Team.setMinimumMembers(teamData.)
             
             newTeam.setTeamName(teamData.getTeamName());
             newTeam.setMembers(creator);
+            newTeam.setCourse(selectedCourse);
+            System.out.println("Selected course  : "+ courseId);
+            newTeam.setParameters(selectedCourse.getTeamParams());
             creator.setTeam(newTeam);
             
             

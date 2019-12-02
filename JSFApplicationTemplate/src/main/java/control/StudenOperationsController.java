@@ -31,7 +31,7 @@ public class StudenOperationsController {
     private TeamData teamData;
      
      @Inject
-     private LoginBean loginData;
+     private LoginBean loginBean;
 
     @PersistenceContext
     EntityManager em;
@@ -51,9 +51,8 @@ public class StudenOperationsController {
         if(!teamData.getTeamName().equals("")){
             if( DBHelper.findTeam(em, teamData.getTeamName()) == null){
                 
-                
-                if(DBHelper.addTeam(em,utx,teamData,loginData.getSelectedCourse())){
-                    loginData.setIsTeamMember(true);
+                if(DBHelper.addTeam(em,utx,teamData,loginBean.getSelectedCourse())){
+                    loginBean.setIsTeamMember(true);
                     
                     teamData.setAddstatus("The Team Was Successfuly Added by " + teamData.getUserId());
 
