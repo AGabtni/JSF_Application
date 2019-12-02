@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -27,7 +28,9 @@ public class Team implements Serializable {
     @OneToMany
     private List<UserAccount> members;
     private TeamParams parameters;
+    @ManyToOne
     private Course course;
+    
     public Team(){
         
         this.members = new ArrayList<>();

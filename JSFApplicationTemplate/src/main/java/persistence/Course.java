@@ -7,10 +7,12 @@ package persistence;
 
 import beans.CourseData;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import persistence.TeamParams;
 /**
  *
@@ -25,6 +27,8 @@ public class Course implements Serializable {
     
     //new instance of team parameters associated with this course
     private TeamParams teamParams = null;
+    @OneToMany(mappedBy = "course")
+    private List<Team> teams;
     
     
     
