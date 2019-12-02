@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -16,14 +17,17 @@
 
         <div id="top" class="top">
             <ui:insert name="top">
+                
                 <div>
-                    <h:form>
+                    <h2><BIG>TCS</BIG></h2>
+                </div>
+                                    <hr/>
+
+                <div>
+                   <h:form>
                 <h:commandButton value="Logout" type="command"  action="#{loginBean.logout}"> 
                 </h:commandButton> 
                     </h:form>
-                </div>
-                <div>
-                    <h1><BIG>TCS</BIG></h1>
                 </div>
             </ui:insert>
         </div>
@@ -31,7 +35,16 @@
             <div id="left">
                 <ui:insert name="left">
                 <ul style="list-style-type:none; width: 20%" class="left-menu-list"> 
+                    
+                    
+                    
+                    <c:if test = "#{sessionScope.User.isTeacher}">
                     <li style="margin-bottom: 20px"><h:link outcome="add" value="Add Course"/></li>
+                    </c:if>
+
+                    
+                    
+                    
                     <li style="margin-bottom: 20px"><h:link  outcome="lookup" value="Lookup Course"/></li>
                     <li style="margin-bottom: 20px"><h:link  outcome="courseList" value="Course List"/></li>
                 </ul>
