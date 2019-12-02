@@ -28,7 +28,7 @@ public class Team implements Serializable {
     private int maxStudents;
     @OneToMany
     private List<UserAccount> members;
- 
+    
     public Team(){
         
         this.members = new ArrayList<>();
