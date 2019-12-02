@@ -9,13 +9,7 @@
 
             <ui:define name="content">
                 <div>
-                    <p>Welcome,</p> 
-                    
-                    <p>Select an Option in the Left Menu...</p>
-                    
-                <h1>You are in the Protected Part of our Site...#{sessionScope.User.firstname} #{sessionScope.User.lastname}</h1>
-                <h1>You are in the Protected Part of our Site...#{sessionScope.User.isStudent} #{sessionScope.User.isTA} #{sessionScope.User.isTeacher}</h1>
-
+                    <p>Welcome, #{sessionScope.User.firstname} #{sessionScope.User.lastname}</p> 
                 </div>
             </ui:define>
 
