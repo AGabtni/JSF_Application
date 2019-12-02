@@ -41,8 +41,10 @@
                             
                         </h:link>
                     </li>
-                    <li><h:link outcome="displayTeams.xhtml" value="Display Team"/>
-                        
+                    <li><h:link outcome="displayTeams.xhtml" value="Display Team">
+                            <f:param name="id" value="#{sessionScope.User.userId}" />
+                            <f:param name="courseId" value="#{loginBean.selectedCourse}" />
+                        </h:link>
                     </li>
                 </ul>
                 </ui:insert>

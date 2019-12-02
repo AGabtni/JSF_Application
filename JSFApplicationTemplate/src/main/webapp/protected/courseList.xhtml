@@ -50,7 +50,7 @@
                                     <h:link style="color: midnightblue; font-weight: 900; font-size: large" value="#{course.courseCode}" >
                                         
                                      </h:link>
-                                    <h:button       rendered="#{sessionScope.User.isTA}"
+                                    <h:button       rendered="#{sessionScope.User.isTA || sessionScope.User.isTeacher}"
                                                     style="margin-top: 20px;border-radius: 5px" 
                                                    value="Instructor Operations" 
                                                    outcome="instructorOperationsChoices.xhtml"

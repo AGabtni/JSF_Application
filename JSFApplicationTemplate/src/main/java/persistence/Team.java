@@ -30,6 +30,7 @@ public class Team implements Serializable {
     private TeamParams parameters;
     @ManyToOne
     private Course course;
+    private String leaderUserId;
     
     public Team(){
         
@@ -116,5 +117,12 @@ public class Team implements Serializable {
     }
     
     
-    
+    public boolean isFull(){
+        
+        if(this.parameters.getMaxStudents()!= members.size())
+            return false;
+        
+        return true;
+                
+    }
 }

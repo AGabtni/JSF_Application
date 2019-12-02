@@ -81,7 +81,10 @@ public class StudenOperationsController {
         
     }
     
-    
+    public void joinIncompleteTeam(String selectedTeamName){
+        
+        System.out.println("Selected team is : " + selectedTeamName);
+    }
     
     
 }

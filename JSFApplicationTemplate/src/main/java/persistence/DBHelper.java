@@ -91,7 +91,6 @@ public class DBHelper {
              
             utx.begin();
             UserAccount creator = em.find(UserAccount.class, teamData.getUserId());
-
             Course selectedCourse = em.find(Course.class, courseId);
             
             if(selectedCourse.getTeamParams() == null)
@@ -110,7 +109,6 @@ public class DBHelper {
             newTeam.setTeamName(teamData.getTeamName());
             newTeam.setMembers(creator);
             newTeam.setCourse(selectedCourse);
-            System.out.println("Selected course  : "+ courseId);
             newTeam.setParameters(selectedCourse.getTeamParams());
             creator.setTeam(newTeam);
             
