@@ -5,8 +5,10 @@
  */
 package beans;
 
+import control.StudenOperationsController;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import persistence.Team;
 /**
@@ -21,6 +23,12 @@ public class TeamData {
     private String addstatus;
     private List<Team> teams;
     private String userId;
+    private String selectedTeam;
+    
+     @Inject
+        private StudenOperationsController studentController;
+     
+     
     public TeamData() {
     }
 
@@ -69,8 +77,20 @@ public class TeamData {
         return this.userId;
     }
     
+    public void setSelectedTeam(String  selected){
+        this.selectedTeam = selected;
+        studentController.join();
+
+    }
+    public String getSelectedTeam(){
+        
+        return this.selectedTeam;
+    }
    
-    
+    public void Join(){
+        
+        System.out.println("HERE");
+    }
     
   
    

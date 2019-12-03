@@ -7,7 +7,7 @@
     <f:metadata>
         <f:event type="preRenderView" listener="#{studentControl.displayTeams}"/>
         <f:viewParam name="id" value="#{teamData.userId}" />
-        <f:viewParam name="courseId" value="#{loginBean.selectedCourse}" />
+        <f:viewParam name="courseId" value="#{loginBean.selectedCourse}" />        
     </f:metadata>
     <body>
 
@@ -21,44 +21,49 @@
             </h:panelGroup>
             <h:dataTable value="#{teamData.teamsFound}" var="team">
                 <h:column>
-                    <div style="width: 75px;
-                            height: 100px;
+                    <div style="
+                            display: flex;
                             align-items: center;
+                            justify-content: center;
                             border-radius:5px; 
                             border-color: black; 
                             background-color: white;
-                            padding: 50px;">
-                        <h:link style="color: red" value="#{team.teamName}">
-                            <f:param  name="id" value="#{team.teamName}" />
-                        </h:link>
-                        <br></br>
-                        <h:outputText value="Members : " style="font-weight: 900"></h:outputText>
-                        
-                        <h:dataTable value="#{team.members}" var="member">
+                            padding: 10px;">
+                        <h:column>
+                            <h:outputText id="teamNameId" style="color: red" value="#{team.teamName}">
                             
-                            <h:column>
-                                
-                                <h:outputText value="#{member.firstname}"></h:outputText>
-                            </h:column>
+                            </h:outputText>
+                            <br></br>
+                            <h:outputText value="Members : " style="font-weight: 900"></h:outputText>
+
+                            <h:dataTable value="#{team.members}" var="member">
+                                <h:column>
+                                    <h:outputText value="#{member.firstname}"></h:outputText>
+                                </h:column>
+                            </h:dataTable>
+                            <br></br>
+=
+                            <h:outputText value="Maximum students #{team.parameters.maxStudents}"></h:outputText>
+
+                            <h:outputText value="Minimum students #{team.parameters.minStudents}"></h:outputText>
+                            <h:link    style="margin-top: 20px"
+                                          value="Join Team" 
+                                          outcome="requestJoinTeam.xhtml">
+                                <f:param name="id" value="#{sessionScope.User.userId}" />
+                                <f:param name="courseId" value="#{loginBean.selectedCourse}" />
+                                <f:param name="selectedTeam" value="#{team.teamName}" />
+                            </h:link>
                             
-                        </h:dataTable>
-                        <h:outputText value="Maximum students #{team.parameters.maxStudents}"></h:outputText>
-                        <h:outputText value="Minimum students #{team.parameters.minStudents}"></h:outputText>
-                        <h:button 
-                            style="margin-top: 20px;border-radius: 5px" 
-                            value="Join Team"
-                            onclick="#{studentControl.joinIncompleteTeam(team.teamName)}">
                             
-                        </h:button>
-                        <h:commandButton value="Join Team" 
-                                         type="command" actionListener="#{studentControl.joinIncompleteTeam}">
-                            <f:ajax execute="teamName" render="results"/>
-                        </h:commandButton>
-                    </div>
+                        </h:column>    
+=                    </div>
                 </h:column>
             </h:dataTable>
+            
+            
+            
        </ui:define>
-
+     
      </ui:composition>
 
     </body>

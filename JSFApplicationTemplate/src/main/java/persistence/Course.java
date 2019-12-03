@@ -33,6 +33,8 @@ public class Course implements Serializable {
     
     
     public Course(){
+        
+        
     }
 
     public String getCourseCode() {
@@ -93,7 +95,13 @@ public class Course implements Serializable {
     }
     /*-----------------------*/
     
+    public List<Team> getTeams(){
+        
+        return this.teams;
+    }
     
-    
-    
+    public void setTeams(Team newTeam){
+        
+         this.teams.add(newTeam);
+    }
 }

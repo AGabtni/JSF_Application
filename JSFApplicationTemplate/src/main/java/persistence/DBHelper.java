@@ -111,7 +111,7 @@ public class DBHelper {
             newTeam.setCourse(selectedCourse);
             newTeam.setParameters(selectedCourse.getTeamParams());
             creator.setTeam(newTeam);
-            
+            selectedCourse.setTeams(newTeam);
             
             em.persist(newTeam);
             utx.commit();
@@ -122,6 +122,46 @@ public class DBHelper {
         return false;
     }
    
+   
+   
+   public static String joinTeam(EntityManager em, UserTransaction utx, TeamData teamData){
+       String status;
+        try {
+             
+            utx.begin();
+            Team t = DBHelper.findTeam(em, teamData.getSelectedTeam() );
+            if(t.isFull()){
+                status = "Failed to join team : " 
+                + teamData.getSelectedTeam() 
+                + ".The team is full.";
+                return status;
+            }   
+            
+            UserAccount newMember = DBHelper.findUser(em, teamData.getUserId());
+                
+            if(newMember.getTeam()!= null){
+                status = "You already are a member of a team";
+                return status;
+            }
+            System.out.println("Members befor : "+t.getMembers().size());        
+            t.setMembers(newMember);
+            newMember.setTeam(t);
+            System.out.println("Members after : "+t.getMembers().size());
+            status = "You have requested to join team : "
+                    + teamData.getSelectedTeam()    
+                    + ". Once your application is accepted, you will become a member of this team.";
+                     
+                
+                
+
+                    
+            utx.commit();
+            return status;
+        } catch (IllegalArgumentException | NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            ex.printStackTrace();
+        }
+        return "DB ERROR";
+   }
    //Team parameters related functions 
    
    //1- create new team parameters

@@ -4,15 +4,19 @@ import beans.TeamData;
 import beans.LoginBean;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import persistence.Course;
 import persistence.DBHelper;
 import persistence.Team;
+import persistence.UserAccount;
 
 
 
@@ -74,16 +78,27 @@ public class StudenOperationsController {
     }
     
     public void displayTeams(){
-        List<Team> teams = DBHelper.findTeams(em);
+        System.out.println("From display teams selected courrse is : " + loginBean.getSelectedCourse());
+        Course selectedCourse = DBHelper.findCourse(em, loginBean.getSelectedCourse());
+        if(selectedCourse.getTeams().isEmpty()){
+            
+            teamData.setAddstatus("No teams found ");
+
+        }
+        else{
+            teamData.setTeamsFound(selectedCourse.getTeams());
+            teamData.setAddstatus(selectedCourse.getTeams().size() +" teams found ");
+        }
         
-        teamData.setTeamsFound(teams);
-        teamData.setAddstatus(teams.size() +" teams found ");
-        
+
     }
     
-    public void joinIncompleteTeam(String selectedTeamName){
+    public void join(){
         
-        System.out.println("Selected team is : " + selectedTeamName);
+       teamData.setAddstatus(DBHelper.joinTeam(em, utx, teamData));
+
+
+        
     }
     
     

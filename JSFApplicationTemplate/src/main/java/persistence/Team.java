@@ -92,6 +92,7 @@ public class Team implements Serializable {
         
         this.members.add(user);
     }
+ 
     
     
     public TeamParams getParameters(){
@@ -119,10 +120,10 @@ public class Team implements Serializable {
     
     public boolean isFull(){
         
-        if(this.parameters.getMaxStudents()!= members.size())
+        if(this.parameters.getMaxStudents() <= members.size())
+            return true;
+        else
             return false;
-        
-        return true;
                 
     }
 }
