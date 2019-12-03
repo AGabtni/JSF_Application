@@ -188,17 +188,6 @@ public class UserAccount implements Serializable {
         this.team = team;
     }
     
-    public boolean hasTeam(){
-        
-        if(this.team != null){
-            
-            return true;
-        }
-        else{
-            return false;
-        }
-            
-    }
     
     
 }

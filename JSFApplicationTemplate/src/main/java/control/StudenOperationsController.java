@@ -2,6 +2,7 @@ package control;
 
 import beans.TeamData;
 import beans.LoginBean;
+import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Locale;
@@ -93,8 +94,30 @@ public class StudenOperationsController {
 
     }
     
+    public void displayTeam(){
+        
+        String userId = teamData.getUserId();
+        String selectedCourse = loginBean.getSelectedCourse();
+        UserAccount student = DBHelper.findUser(em, userId);
+        Team userTeam = student.getTeam();
+        //Changes must be done here for application thing
+        if(userTeam != null){
+            if(!userTeam.getCourse().getCourseCode().equals(selectedCourse)){
+                teamData.setAddstatus("You do not have or belong to a team in this course");
+            }else{
+                List<Team> teams = new ArrayList<>(List.of(userTeam));
+                teamData.setTeamsFound(teams);
+                teamData.setAddstatus("Your team : " + student.getTeam().getTeamName());
+            }
+        }else{
+            teamData.setAddstatus("You have no teams");
+        }
+    }
+    
     public void join(){
-       teamData.setAddstatus(DBHelper.joinTeam(em, utx, teamData));
+        
+        teamData.setSelectedCourse(loginBean.getSelectedCourse());
+        teamData.setAddstatus(DBHelper.joinTeam(em, utx, teamData));
 
 
         

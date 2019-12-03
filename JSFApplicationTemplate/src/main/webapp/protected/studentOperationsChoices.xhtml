@@ -34,14 +34,20 @@
             <div id="left">
                 <ui:insert name="left">
                 <ul style="list-style-type:none;" class="left-menu-list"> 
-                    <li><h:link outcome="welcome" value="Index"/></li>
-                    <li><h:link outcome="createTeam.xhtml" value="Create Team"> 
+                    <li style="margin-bottom: 20px"><h:link outcome="welcome" value="Index"/></li>
+                    <li style="margin-bottom: 20px"><h:link outcome="createTeam.xhtml" value="Create Team"> 
                             <f:param name="id" value="#{sessionScope.User.userId}" />
                             <f:param name="courseId" value="#{loginBean.selectedCourse}" />
                             
                         </h:link>
                     </li>
-                    <li><h:link outcome="displayTeams.xhtml" value="Display Team">
+                    <li style="margin-bottom: 20px"><h:link outcome="displayTeams.xhtml" value="Display Teams">
+                            <f:param name="id" value="#{sessionScope.User.userId}" />
+                            <f:param name="courseId" value="#{loginBean.selectedCourse}" />
+                        </h:link>
+                    </li>
+                    <li style="margin-bottom: 20px"><h:link 
+                            outcome="teamInfo.xhtml" value="Display YOUR Team">
                             <f:param name="id" value="#{sessionScope.User.userId}" />
                             <f:param name="courseId" value="#{loginBean.selectedCourse}" />
                         </h:link>
