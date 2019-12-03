@@ -34,8 +34,8 @@ public class StudenOperationsController {
      @Inject
     private TeamData teamData;
      
-     @Inject
-     private LoginBean loginBean;
+    @Inject
+    private LoginBean loginBean;
 
     @PersistenceContext
     EntityManager em;
@@ -94,7 +94,6 @@ public class StudenOperationsController {
     }
     
     public void join(){
-        
        teamData.setAddstatus(DBHelper.joinTeam(em, utx, teamData));
 
 

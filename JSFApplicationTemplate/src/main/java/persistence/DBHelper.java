@@ -140,13 +140,15 @@ public class DBHelper {
             UserAccount newMember = DBHelper.findUser(em, teamData.getUserId());
                 
             if(newMember.getTeam()!= null){
-                status = "You already are a member of a team";
-                return status;
+                if(newMember.getTeam().getCourse().getCourseCode().equals(teamData.getSelectedCourse())){
+                   status = "You already are a member of a team in this course";
+                    return status; 
+                }
+                
+                
             }
-            System.out.println("Members befor : "+t.getMembers().size());        
             t.setMembers(newMember);
             newMember.setTeam(t);
-            System.out.println("Members after : "+t.getMembers().size());
             status = "You have requested to join team : "
                     + teamData.getSelectedTeam()    
                     + ". Once your application is accepted, you will become a member of this team.";

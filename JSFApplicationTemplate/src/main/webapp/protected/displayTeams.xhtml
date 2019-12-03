@@ -30,12 +30,13 @@
                             background-color: white;
                             padding: 10px;">
                         <h:column>
+                            <br></br>
                             <h:outputText id="teamNameId" style="color: red" value="#{team.teamName}">
                             
                             </h:outputText>
                             <br></br>
                             <h:outputText value="Members : " style="font-weight: 900"></h:outputText>
-
+                            <br></br>
                             <h:dataTable value="#{team.members}" var="member">
                                 <h:column>
                                     <h:outputText value="#{member.firstname}"></h:outputText>
@@ -46,7 +47,8 @@
                             <h:outputText value="Maximum students #{team.parameters.maxStudents}"></h:outputText>
 
                             <h:outputText value="Minimum students #{team.parameters.minStudents}"></h:outputText>
-                            <h:link    style="margin-top: 20px"
+                            <br></br>
+                            <h:link    style=""
                                           value="Join Team" 
                                           outcome="requestJoinTeam.xhtml">
                                 <f:param name="id" value="#{sessionScope.User.userId}" />
@@ -54,7 +56,7 @@
                                 <f:param name="selectedTeam" value="#{team.teamName}" />
                             </h:link>
                             
-                            
+                            <br></br>
                         </h:column>    
 =                    </div>
                 </h:column>

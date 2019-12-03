@@ -24,6 +24,7 @@ public class TeamData {
     private List<Team> teams;
     private String userId;
     private String selectedTeam;
+    private String selectedCourse;
     
      @Inject
         private StudenOperationsController studentController;
@@ -86,11 +87,17 @@ public class TeamData {
         
         return this.selectedTeam;
     }
-   
-    public void Join(){
+    
+    public String getSelectedCourse(){
         
-        System.out.println("HERE");
+        return this.selectedCourse;
     }
+    public void setSelectedCourse(String  selected){
+        this.selectedCourse = selected;
+
+    }
+    
+   
     
   
    
