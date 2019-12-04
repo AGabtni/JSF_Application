@@ -125,7 +125,12 @@ public class StudenOperationsController {
     
     public void addMember(){
         
-        System.out.println("Must found here : " + teamData.getSelectedAppliantId());
+        if(DBHelper.addApplicant(em, utx, teamData))
+            teamData.setAddstatus("Success adding " + teamData.getSelectedApplicantId());
+        else
+            
+            teamData.setAddstatus("Failed adding " + teamData.getSelectedApplicantId() + "to your team");
+                
     }
     
     

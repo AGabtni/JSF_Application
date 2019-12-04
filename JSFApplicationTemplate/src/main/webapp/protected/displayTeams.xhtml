@@ -46,7 +46,7 @@
 
                             <h:outputText value="Minimum students #{team.parameters.minStudents}"></h:outputText>
                             <br></br>
-                            <h:link    style=""
+                            <h:link    
                                        rendered ="#{!sessionScope.User.isTA || !sessionScope.User.isTeacher}"
                                           value="Join Team" 
                                           outcome="requestJoinTeam.xhtml">

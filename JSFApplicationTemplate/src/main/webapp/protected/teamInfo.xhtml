@@ -32,18 +32,18 @@
                             <h:outputText id="teamNameId" style="color: red" value="#{team.teamName}">
                             
                             </h:outputText>
-                            <h:outputText value="Members : " style="font-weight: 900"></h:outputText>
-                            <div rendered="#{team.applicantsEmpty}">
-                                <h:dataTable  value="#{team.applicants}" var="applicant">
-                                    <h:column>
-                                        <h:outputText value="#{applicant.userId}"></h:outputText>
-                                        <h:outputText value="#{applicant.firstname}"></h:outputText>
-                                        <h:outputText value="#{applicant.lastname}"></h:outputText>
-                                        <h:button onclick="#{studentControl.addMember()}" outcome="studenOperationsChoices.xhtml">
-                                            <f:param name="courseId" value="#{loginBean.selectedCourse}" />
-                                       </h:button>
-                                    </h:column>
-                                </h:dataTable>
+                            <h:outputText value="Applicants : " style="font-weight: 900"></h:outputText>
+                            <div rendered="true">
+                            <h:dataTable  value="#{team.applicants}" var="applicant">
+                                <h:column>
+                                    <h:outputText value="Student : #{applicant}"></h:outputText>
+                                    <h:button value="accept"  outcome="acceptStudentRequest.xhtml">
+                                        <f:param name="id" value="#{loginBean.selectedCourse}" />
+                                        <f:param name="courseId" value="#{loginBean.selectedCourse}" />
+                                        <f:param name="selectedUser" value="#{applicant}" />
+                                   </h:button>
+                                </h:column>
+                            </h:dataTable>
                             </div>
                           
                         </h:column>    

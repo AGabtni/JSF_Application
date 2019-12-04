@@ -126,7 +126,30 @@ public class DBHelper {
         return false;
     }
    
-   
+   public static boolean addApplicant(EntityManager em, UserTransaction utx, TeamData teamData){
+       
+        try{
+            utx.begin();
+            
+            UserAccount applicant = em.find(UserAccount.class, teamData.getSelectedApplicantId());
+            if(applicant.getTeam()!= null){
+                
+                return false;
+            }
+            UserAccount user = em.find(UserAccount.class, teamData.getUserId());
+            Team selectedTeam = user.getTeam();
+            
+            selectedTeam.setMembers(applicant);
+            selectedTeam.getApplicants().remove(applicant);
+            applicant.setTeam(selectedTeam);
+            
+            utx.commit();
+            return true;
+        } catch (IllegalArgumentException | NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+   }
    
    public static String joinTeam(EntityManager em, UserTransaction utx, TeamData teamData){
        String status;
@@ -145,7 +168,6 @@ public class DBHelper {
             //Change here
             if(newMember.getTeam()!= null){
                 
-
                 if(newMember.getTeam().getCourse().getCourseCode().equals(teamData.getSelectedCourse())){
                    status = "You already are a member of a team in this course";
                     return status; 
@@ -153,8 +175,17 @@ public class DBHelper {
                
                 
             }
+            
+            
+            //Check if user is applicant
+            if(t.isApplicant(newMember.getUserId())){
+
+                status = "You already applied for this team";
+                return status;
+            }
+
               
-            //t.addApplicant(newMember);
+            t.addApplicant(newMember.getUserId());
             //Change here:
             //newMember.setTeam(t);
             status = "You have requested to join team : "

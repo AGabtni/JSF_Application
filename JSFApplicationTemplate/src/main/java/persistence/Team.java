@@ -27,15 +27,16 @@ public class Team implements Serializable {
     private String teamName;
     @OneToMany
     private List<UserAccount> members;
+    private ArrayList<String> applicants;
     private TeamParams parameters;
     @ManyToOne
     private Course course;
     private String leaderUserId;
- 
+    
     public Team(){
         
         this.members = new ArrayList<>();
-        //this.applicants= new ArrayList<>();
+        this.applicants = new ArrayList<>();
         
     }
 
@@ -90,8 +91,8 @@ public class Team implements Serializable {
     }
     
     public void setMembers(UserAccount user){
-        if(user!=null)
-            this.members.add(user);
+        
+        this.members.add(user);
     }
  
     
@@ -127,7 +128,7 @@ public class Team implements Serializable {
             return false;
                 
     }
-  
+    
     
     public String getLeaderUserId(){
         
@@ -142,8 +143,42 @@ public class Team implements Serializable {
     }
     
     
-   
+    public ArrayList<String> getApplicants(){
+        
+        return this.applicants;
+    }
     
-   
     
+    public void setApplicants(ArrayList<String> newApplicants){
+        
+        this.applicants = newApplicants;
+    }
+    
+    public boolean addApplicant(String user){
+        
+        if(this.parameters.getMaxStudents()> this.members.size()){
+            
+            this.applicants.add(user);
+            return true;
+        }
+            
+        
+        System.out.println("Failed to add applicatn ");
+        return false;
+    }
+    
+    
+    public boolean isApplicant(String user){
+        
+        if(user == null)
+            return false;
+        
+        if(this.applicants.isEmpty()){
+            return false;
+        }
+        else{
+            
+            return this.applicants.contains(user);
+        }
+    }
 }
