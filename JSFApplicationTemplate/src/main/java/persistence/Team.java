@@ -31,10 +31,11 @@ public class Team implements Serializable {
     @ManyToOne
     private Course course;
     private String leaderUserId;
-    
+ 
     public Team(){
         
         this.members = new ArrayList<>();
+        //this.applicants= new ArrayList<>();
         
     }
 
@@ -89,8 +90,8 @@ public class Team implements Serializable {
     }
     
     public void setMembers(UserAccount user){
-        
-        this.members.add(user);
+        if(user!=null)
+            this.members.add(user);
     }
  
     
@@ -126,4 +127,23 @@ public class Team implements Serializable {
             return false;
                 
     }
+  
+    
+    public String getLeaderUserId(){
+        
+        return this.leaderUserId;
+               
+    }
+    
+    public void setLeaderUserId(String userId){
+        
+        this.leaderUserId = userId;
+               
+    }
+    
+    
+   
+    
+   
+    
 }

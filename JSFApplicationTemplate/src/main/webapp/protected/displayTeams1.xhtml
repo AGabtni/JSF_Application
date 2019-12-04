@@ -5,16 +5,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <f:metadata>
-        <f:event type="preRenderView" listener="#{studentControl.displayTeam}"/>
+        <f:event type="preRenderView" listener="#{studentControl.displayTeams}"/>
         <f:viewParam name="id" value="#{teamData.userId}" />
         <f:viewParam name="courseId" value="#{loginBean.selectedCourse}" />        
     </f:metadata>
     <body>
 
-        <ui:composition template="studentOperationsChoices.xhtml">
+        <ui:composition template="instructorOperationsChoices.xhtml">
 
          <ui:define name="content">
-            <h1 style="font-weight: 900;">Team joined for this course : </h1>
+            <h1 style="font-weight: 900;">Teams available</h1>
             <h:panelGroup id="results">
                     
                 <h:outputText rendered="#{teamData.showResults}" style="color:red" id="resultMessage" value="#{teamData.addstatus}"/>
@@ -28,26 +28,35 @@
                             border-color: black; 
                             background-color: white;
                             padding: 10px;">
-                        <h:column>
+                            <br></br>
                             <h:outputText id="teamNameId" style="color: red" value="#{team.teamName}">
                             
                             </h:outputText>
+                            <br></br>
                             <h:outputText value="Members : " style="font-weight: 900"></h:outputText>
-                            <div rendered="#{team.applicantsEmpty}">
-                                <h:dataTable  value="#{team.applicants}" var="applicant">
-                                    <h:column>
-                                        <h:outputText value="#{applicant.userId}"></h:outputText>
-                                        <h:outputText value="#{applicant.firstname}"></h:outputText>
-                                        <h:outputText value="#{applicant.lastname}"></h:outputText>
-                                        <h:button onclick="#{studentControl.addMember()}" outcome="studenOperationsChoices.xhtml">
-                                            <f:param name="courseId" value="#{loginBean.selectedCourse}" />
-                                       </h:button>
-                                    </h:column>
-                                </h:dataTable>
-                            </div>
-                          
-                        </h:column>    
-                     </div>
+                            <br></br>
+                            <h:dataTable value="#{team.members}" var="member">
+                                <h:column>
+                                    <h:outputText value="#{member.firstname}"></h:outputText>
+                                </h:column>
+                            </h:dataTable>
+                            <br></br>
+
+                            <h:outputText value="Maximum students #{team.parameters.maxStudents}"></h:outputText>
+
+                            <h:outputText value="Minimum students #{team.parameters.minStudents}"></h:outputText>
+                            <br></br>
+                            <h:link    style=""
+                                       rendered ="#{!sessionScope.User.isTA || !sessionScope.User.isTeacher}"
+                                          value="Join Team" 
+                                          outcome="requestJoinTeam.xhtml">
+                                <f:param name="id" value="#{sessionScope.User.userId}" />
+                                <f:param name="courseId" value="#{loginBean.selectedCourse}" />
+                                <f:param name="selectedTeam" value="#{team.teamName}" />
+                            </h:link>
+                            
+                            <br></br>
+                    </div>
                 </h:column>
             </h:dataTable>
             

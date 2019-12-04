@@ -25,6 +25,7 @@ public class TeamData {
     private String userId;
     private String selectedTeam;
     private String selectedCourse;
+    private String selectedAppliantId;
     
      @Inject
         private StudenOperationsController studentController;
@@ -98,7 +99,15 @@ public class TeamData {
     }
     
    
+    public String getSelectedAppliantId(){
+        
+        return this.selectedAppliantId;
+    }
     
+    public void setSelectedAppliantId(String  selected){
+        this.selectedAppliantId = selected;
+
+    }
   
    
 }

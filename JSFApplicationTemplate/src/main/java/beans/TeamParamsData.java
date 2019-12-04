@@ -6,6 +6,10 @@
 package beans;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import persistence.Course;
 
@@ -64,6 +68,20 @@ public class TeamParamsData {
          return this.maxStudents;
         
     }
+     
+     public void minMaxValidator(FacesContext context, UIComponent comp,
+			Object value){
+         int num = (int) value;
+         
+         if(num <= 0){
+             ((UIInput) comp).setValid(false);
+             FacesMessage message = new FacesMessage("Minimum must be 1");
+            context.addMessage(comp.getClientId(context), message);
+         }
+             
+             
+         
+     }
      
      /**
       function helpers for the course

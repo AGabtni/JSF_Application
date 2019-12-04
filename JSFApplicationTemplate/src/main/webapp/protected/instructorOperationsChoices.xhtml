@@ -34,10 +34,19 @@
             <div id="left">
                 <ui:insert name="left">
                <ul style="list-style-type:none;" class="left-menu-list"> 
-                 <li><h:link outcome="welcome" value="Index"/></li>
+                 <li style="margin-bottom: 20px;"><h:link outcome="welcome" value="Index"/></li>
                  
-                 <li><h:link outcome="teamParams.xhtml" value="Set up teams params"/></li>
-                 <li><h:link outcome="displayTeams" value="Display teams"/></li>
+                 <li style="margin-bottom: 20px;"><h:link outcome="teamParams.xhtml" value="Set up teams params">
+                     
+                        <f:param name="id" value="#{sessionScope.User.userId}" />
+                        <f:param name="courseId" value="#{loginBean.selectedCourse}" />  
+                        </h:link>
+                 </li>
+                 <li style="margin-bottom: 20px;"><h:link outcome="displayTeams1" value="Display teams">
+                        <f:param name="id" value="#{sessionScope.User.userId}" />
+                        <f:param name="courseId" value="#{loginBean.selectedCourse}" />   
+                     </h:link>
+                 </li>
 
                 </ul>
                 </ui:insert>
@@ -45,6 +54,7 @@
             <div id="content" class="left_content">
                 <ui:insert name="content">
                     <h1>Selected course : #{loginBean.selectedCourse}</h1>
+                    
                 </ui:insert>
             </div>
         </div>

@@ -24,7 +24,6 @@
                     <div style="
                             display: flex;
                             align-items: center;
-                            justify-content: center;
                             border-radius:5px; 
                             border-color: black; 
                             background-color: white;
@@ -48,6 +47,7 @@
                             <h:outputText value="Minimum students #{team.parameters.minStudents}"></h:outputText>
                             <br></br>
                             <h:link    style=""
+                                       rendered ="#{!sessionScope.User.isTA || !sessionScope.User.isTeacher}"
                                           value="Join Team" 
                                           outcome="requestJoinTeam.xhtml">
                                 <f:param name="id" value="#{sessionScope.User.userId}" />

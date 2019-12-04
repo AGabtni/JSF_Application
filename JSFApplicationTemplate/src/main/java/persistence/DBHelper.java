@@ -90,9 +90,14 @@ public class DBHelper {
         try {
              
             utx.begin();
+            System.out.println(teamData.getUserId());
             UserAccount creator = em.find(UserAccount.class, teamData.getUserId());
-            Course selectedCourse = em.find(Course.class, courseId);
             
+            
+            System.out.println(creator.getUserId());
+
+            Course selectedCourse = em.find(Course.class, courseId);
+            System.out.println(creator.getUserId());
             if(selectedCourse.getTeamParams() == null)
                 return false;
             if(creator.getTeam() != null){
@@ -104,8 +109,7 @@ public class DBHelper {
             }
             
             Team newTeam = new Team();
-            //Team.setMinimumMembers(teamData.)
-            
+            //newTeam.setLeaderUserId(teamData.getUserId());
             newTeam.setTeamName(teamData.getTeamName());
             newTeam.setMembers(creator);
             newTeam.setCourse(selectedCourse);
@@ -138,17 +142,21 @@ public class DBHelper {
             }   
             
             UserAccount newMember = DBHelper.findUser(em, teamData.getUserId());
-                
+            //Change here
             if(newMember.getTeam()!= null){
+                
+
                 if(newMember.getTeam().getCourse().getCourseCode().equals(teamData.getSelectedCourse())){
                    status = "You already are a member of a team in this course";
                     return status; 
                 }
-                
+               
                 
             }
-            t.setMembers(newMember);
-            newMember.setTeam(t);
+              
+            //t.addApplicant(newMember);
+            //Change here:
+            //newMember.setTeam(t);
             status = "You have requested to join team : "
                     + teamData.getSelectedTeam()    
                     + ". Once your application is accepted, you will become a member of this team.";
