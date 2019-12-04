@@ -38,7 +38,7 @@
                                 <h:column>
                                     <h:outputText value="Student : #{applicant}"></h:outputText>
                                     <h:button value="accept"  outcome="acceptStudentRequest.xhtml">
-                                        <f:param name="id" value="#{loginBean.selectedCourse}" />
+                                        <f:param name="id" value="#{sessionScope.User.userId}" />
                                         <f:param name="courseId" value="#{loginBean.selectedCourse}" />
                                         <f:param name="selectedUser" value="#{applicant}" />
                                    </h:button>

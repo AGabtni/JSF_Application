@@ -132,11 +132,18 @@ public class DBHelper {
             utx.begin();
             
             UserAccount applicant = em.find(UserAccount.class, teamData.getSelectedApplicantId());
+            System.out.println("Applicant found :" + applicant.getUserId() );
+
             if(applicant.getTeam()!= null){
-                
+                System.out.println("Applicant has team" );
+
                 return false;
             }
+            
             UserAccount user = em.find(UserAccount.class, teamData.getUserId());
+            System.out.println("Applicant found :" + applicant.getUserId() );
+            
+            
             Team selectedTeam = user.getTeam();
             
             selectedTeam.setMembers(applicant);

@@ -124,13 +124,16 @@ public class StudenOperationsController {
     }
     
     public void addMember(){
-        
+        /*
         if(DBHelper.addApplicant(em, utx, teamData))
             teamData.setAddstatus("Success adding " + teamData.getSelectedApplicantId());
         else
             
             teamData.setAddstatus("Failed adding " + teamData.getSelectedApplicantId() + "to your team");
-                
+        
+        */
+        System.out.println("DBHELPER RESPONSE : "+ DBHelper.addApplicant(em, utx, teamData));
+        System.out.println("Accepting " + teamData.getSelectedApplicantId());
     }
     
     
